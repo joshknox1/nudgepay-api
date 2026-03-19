@@ -1,0 +1,25 @@
+name = "nudgepay-api"
+main = "index.js"
+compatibility_date = "2024-11-12"
+
+[vars]
+APP_URL = "https://nudgepay-api.joshknox1.workers.dev"
+ENVIRONMENT = "production"
+FROM_EMAIL = "onboarding@resend.dev"
+FRONTEND_URL = "https://nudgepay.pages.dev"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "nudgepay-db"
+database_id = "1617c188-7ee1-428d-a112-f7d347c04e72"
+
+# Secrets (set via wrangler secret put):
+# OPENROUTER_API_KEY
+# RESEND_API_KEY
+# STRIPE_CONNECT_WEBHOOK_SECRET
+# STRIPE_SECRET_KEY
+# STRIPE_WEBHOOK_SECRET
+# TWILIO_ACCOUNT_SID
+# TWILIO_AUTH_TOKEN
+# TWILIO_PHONE_NUMBER
+# FROM_EMAIL_OVERRIDE
