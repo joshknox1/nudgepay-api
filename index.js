@@ -2542,16 +2542,19 @@ async function verifyMagicLink(env, rawToken) {
 __name(verifyMagicLink, "verifyMagicLink");
 async function getUserFromRequest(env, request) {
   const authHeader = request.headers.get("Authorization");
-  if (!authHeader?.startsWith("Bearer ")) {
+  let token;
+  if (authHeader?.startsWith("Bearer ")) {
+    token = authHeader.slice(7);
+  } else {
     const cookie = request.headers.get("Cookie");
     const sessionCookie = cookie?.split(";").find((c) => c.trim().startsWith("session="));
     if (!sessionCookie) return null;
-    const token2 = sessionCookie.split("=")[1].trim();
-    const payload2 = await verifyJWT(token2, env.RESEND_API_KEY);
-    if (!payload2?.user_id) return null;
-    return env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(payload2.user_id).first();
+    token = sessionCookie.split("=")[1].trim();
   }
-  const token = authHeader.slice(7);
+  // Validate token format: should have exactly 3 parts separated by dots
+  if (!token || token.split('.').length !== 3) {
+    return null;
+  }
   const payload = await verifyJWT(token, env.RESEND_API_KEY);
   if (!payload?.user_id) return null;
   return env.DB.prepare("SELECT * FROM users WHERE id = ?").bind(payload.user_id).first();

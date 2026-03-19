@@ -23,3 +23,10 @@ database_id = "1617c188-7ee1-428d-a112-f7d347c04e72"
 # TWILIO_AUTH_TOKEN
 # TWILIO_PHONE_NUMBER
 # FROM_EMAIL_OVERRIDE
+# JWT_SECRET
+
+# Staging and production environment sections
+# [env.staging]
+# vars = { ENVIRONMENT = "staging" }
+# [env.production]
+# vars = { ENVIRONMENT = "production" }
